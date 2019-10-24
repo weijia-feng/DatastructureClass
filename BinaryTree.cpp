@@ -19,6 +19,7 @@ public:
     BinaryTree(TYPE _d);
     int inorder_walk();
     int inorder_walk(Node *_x);
+    int reinit(Node* _x); 
 
 private:
     Node *__root;
@@ -28,7 +29,7 @@ private:
 class BinarySearchTree : public BinaryTree
 {
 public:
-    BinarySearchTree();
+    BinaySearchTree(){};
     BinarySearchTree(TYPE _d);
     Node* search(Node* _x, TYPE k);
     Node* min();
@@ -37,6 +38,9 @@ public:
     Node* max(Node* _x);
     Node* successor(Node* _x);
     Node* predecessor(Node* _x);
+    int insert(Node* _r, Node* _x);
+    int del(Node *_x);
+    int transplant(Node* _o, Node* _n);
 };
 
 typedef BinaryTree::Node BTNode;
@@ -51,7 +55,7 @@ BinaryTree::BinaryTree(TYPE _d)
     r->data = _d;
 };
 
-BinarySearchTree::BinarySearchTree(TYPE _d):BinaryTree(_d){};
+BinarySearchTree::BinarySearchTree(TYPE _d)::BinaryTree(_d){};
 
 const BinaryTree::Node* BinaryTree::_getroot()
 {
@@ -70,7 +74,7 @@ int BinaryTree::inorder_walk(Node* _x)
     return 0;// Means that the function has ended.this color makes me fall in love with writing explationation, haha.
 };
 
-BinarySearchTree::Node* BinarySearchTree::search(Node* _x, TYPE k)
+BSTNode* BinarySearchTree::search(Node* _x, TYPE k)
 {
     while(_x != NULL && _x->data != k)
 	{
@@ -80,6 +84,12 @@ BinarySearchTree::Node* BinarySearchTree::search(Node* _x, TYPE k)
 		_x = _x ->right;
       	}
     return _x;
+};
+
+int BinaryTree::reinit(Node* _x)
+{
+    __root = _x;
+    return 0;
 };
 
 BSTNode *BinarySearchTree::min(Node* _x)
@@ -126,6 +136,57 @@ BSTNode *BinarySearchTree::predecessor(Node *_x)
 		}
 	    return y;
 	}
+};
+
+int BinarySearchTree::insert(Node* _r, Node* _new)
+{
+    Node* y = NULL;
+    if (_r == NULL)
+	reinit(_new);
+    else
+	while(_r != NULL)
+	    {
+		if(_r -> data > _new -> data)
+		    _r = _r -> left;
+		else
+		    _r = _r -> right;
+		
+		y = _r -> parent;
+	    }
+    
+    if (y->data < _new -> data)
+	y -> right = _new;
+    else
+	y -> left = _new;
+    
+};
+
+int BinarySearchTree::del(Node* _x)
+{    
+    if (_x -> left == NULL)
+	transplant(_x, _x  ->  right);
+    else if(_x -> right == NULL)
+	transplant(_x, _x -> left);
+    else
+	{
+	    y = min(_x -> right);
+	    transplant(y, y -> right);
+	    y -> right = _x -> right;
+	    _x -> right -> parent = y;
+	    transplant(_x, y);
+	    y -> left = _x -> left;
+	    _x -> left -> parent = y;
+	}
+    return 0;
+};
+
+int BinarySearchTree::transplant(Node* _o, Node* _n)
+{
+    if (_o == NULL)
+	reinit(_n);
+    else
+	_n -> parent = _o ->parent;
+    return 0;
 };
 
 int main(int argc, char *argv[])
