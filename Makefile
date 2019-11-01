@@ -8,4 +8,5 @@ main : $(object)
 %.o : %.cpp
 	g++ -c $<
 
-clean : *.o 
+clean :
+	rm *.o *.exe main
