@@ -3,7 +3,7 @@
 #define _BINARYSEARCHTREE_H
 
 BSTNode* BinarySearchTree::search(Node* _x, TYPE k)
-{
+{ 
     while(_x != NULL && _x->data != k)
 	{
 	    if (k < _x->data)
@@ -14,10 +14,21 @@ BSTNode* BinarySearchTree::search(Node* _x, TYPE k)
     return _x;
 };
 
+BSTNode *BinarySearchTree::min()
+{
+    BSTNode* r = _getroot();
+    if (r != NULL)
+	_r = min(_r);
+    return _r;	
+}
+ 
 BSTNode *BinarySearchTree::min(Node* _x)
 {
-    while (_x->left != NULL)
-	_x = _x ->left;
+    if (_x != NULL)
+	{
+	     while (_x->left != NULL)
+	     _x = _x ->left;
+	}
     return _x;
 };
 
@@ -28,8 +39,21 @@ BSTNode *BinarySearchTree::max(Node* _x)
     return _x;
 };
 
+BSTNode *BinarySearchTree::max()
+{
+    BSTNode* r = _getroot();
+    if (r != NULL)
+	_r = max(_r);
+    return _r;	
+}
+
 BSTNode *BinarySearchTree::successor(Node* _x)
 {
+    if (_x == NULL)
+	{
+	    std::cout << "Error, null has no successor." << std::endl;
+	    exit(-1);
+	}
     if (_x -> right != NULL)
 	return min(_x -> right);
     else
@@ -46,6 +70,11 @@ BSTNode *BinarySearchTree::successor(Node* _x)
 
 BSTNode *BinarySearchTree::predecessor(Node *_x)
 {
+    if (_x == NULL)
+	{
+	    std::cout << "Error, null has no successor." << std::endl;
+	    exit(-1);
+	}
     if (_x -> left != NULL)
 	return max(_x -> left);
     else
