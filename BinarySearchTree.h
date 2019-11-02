@@ -15,6 +15,7 @@ public:
     int insert(Node* _r, Node* _x);
     int del(Node *_x);
     int transplant(Node* _o, Node* _n);
+    int insert(TYPE _d);
 };
 
 typedef BinaryTree::Node BTNode;
