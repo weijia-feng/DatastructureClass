@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
     B.inorder_walk(B._getroot());    
 
     BSTNode* r = B._getroot();
-    r = r -> left ->left;
+    r = r -> left -> left;
     B.del(r);
     B.inorder_walk(B._getroot());    
     //std::cout << B._getroot()->data << std::endl;

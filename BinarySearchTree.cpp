@@ -122,40 +122,26 @@ int BinarySearchTree::transplant(Node* _o, Node* _n)
 
 int BinarySearchTree::del(Node* _x)
 {
-    if (_x == NULL)
-	{
-	    std::cout << "Error: You try to delete a NULL pointer"
-		      << std::endl; 
-	    exit(-1);
-	}
+    if (_x -> left == NULL)
+	transplant(_x, _x -> right);
+    else if (_x -> right == NULL)
+	transplant(_x, _x -> left);
     else
-    {
-	if (_x ->left == NULL && _x ->right == NULL)
-	    {
-		delete _x;
-		return 0;
-	    }
-	else if (_x -> left == NULL)
-	    transplant(_x, _x  ->  right);
-	else if(_x -> right == NULL)
-	    transplant(_x, _x -> left);
-	else
-	    {
-		Node* y = min(_x -> right);
-		transplant(y, y -> right);
-		y -> right = _x -> right;
-		if (_x->right != NULL)
-		    _x -> right -> parent = y;
-		transplant(_x, y);
-		y -> left = _x -> left;
-		if (_x->left != NULL)
-		    _x -> left -> parent = y;
-	    }
+	{
+	    Node* y = min(_x -> right);
+	    
+	    if (y->parent != _x)
+		{
+		    transplant(y, y->right);
+		    y->right->parent = y;
+		}
+	    transplant(_x, y);
+	    y -> left = _x -> left;
+	    y -> left -> parent = y;
+	}
 	
-    }
     delete _x;
     return 0;
 };
-
 
 #endif
