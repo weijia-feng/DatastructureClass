@@ -18,8 +18,8 @@ BSTNode *BinarySearchTree::min()
 {
     BSTNode* r = _getroot();
     if (r != NULL)
-	_r = min(_r);
-    return _r;	
+	r = min(r);
+    return r;	
 }
  
 BSTNode *BinarySearchTree::min(Node* _x)
@@ -43,8 +43,8 @@ BSTNode *BinarySearchTree::max()
 {
     BSTNode* r = _getroot();
     if (r != NULL)
-	_r = max(_r);
-    return _r;	
+	r = max(r);
+    return r;	
 }
 
 BSTNode *BinarySearchTree::successor(Node* _x)

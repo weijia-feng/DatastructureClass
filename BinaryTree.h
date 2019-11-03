@@ -20,7 +20,10 @@ public:
     int inorder_walk();
     int inorder_walk(Node *_x);
     int reinit(Node* _x); 
-
+    int Release(Node* _x);
+    int release(Node* _x);
+    int release();
+    
 private:
     Node *__root;
 }; 

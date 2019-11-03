@@ -26,7 +26,41 @@ int BinaryTree::inorder_walk(Node* _x)
 	    inorder_walk(_x->right);
 	    
 	}
-    return 0;// Means that the function has ended.this color makes me fall in love with writing explationation, haha.
+    return 0;
+};
+
+int BinaryTree::Release(Node *_x)
+{
+    if (_x != NULL)
+    {
+	Release(_x->left);
+	Release(_x->right);
+	delete _x;
+    }
+    return 0;
+};
+
+int BinaryTree::release(Node* _x)
+{
+    Node* y = NULL;
+    if (_x != NULL)
+        y = _x->parent;
+    if (y != NULL)
+    {
+        if (_x == y->left)
+	    y->left = NULL;
+	else
+	    y->right = NULL;
+    }
+    Release(_x);
+    return 0;
+};
+
+int BinaryTree::release()
+{
+    Release(__root);
+    __root = NULL;
+    return 0;
 };
 
 int BinaryTree::reinit(Node* _x)
