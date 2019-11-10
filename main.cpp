@@ -44,10 +44,14 @@ int main(int argc, char *argv[])
     
     B.inorder_walk(B._getroot());    
     std::cout << "Height of B:" << B.height() << std::endl;
-    std::cout << "Maximum of B:" << B.max() << std::endl;
-    std::cout << "Minimum of B:" << B.min() << std::endl;
-    
+    std::cout << "Maximum of B:" << B.max_value() << std::endl;
+    std::cout << "Minimum of B:" << B.min_value() << std::endl;
     BSTNode* r = B._getroot();
+    std::cerr << "predecessor of root:"
+	      << B.predecessor(r)->data
+	      << std::endl;
+    std::cerr << "successor of root:" << B.successor(r)->data << std::endl;
+    
     r = r -> left -> left;
     B.del(r);
     B.inorder_walk(B._getroot());

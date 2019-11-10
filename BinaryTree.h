@@ -1,5 +1,8 @@
 #include<iostream>
+#include<limits>
+
 typedef int TYPE;
+#define MIN (std::numeric_limits<TYPE>::min())
 
 class BinaryTree
 {

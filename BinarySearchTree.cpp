@@ -4,7 +4,7 @@
 
 BSTNode* BinarySearchTree::search(Node* _x, TYPE k)
 { 
-    while(_x != NULL && _x->data != k)
+    while(_x != nil && _x->data != k)
 	{
 	    if (k < _x->data)
 		_x = _x ->left;
@@ -22,7 +22,7 @@ BSTNode *BinarySearchTree::min()
 BSTNode *BinarySearchTree::min(Node* _x)
 {
     if (_x == nil)
-	return _x;	
+	return NULL;	
     while (_x->left != nil)
 	_x = _x ->left;	
     return _x;
@@ -31,10 +31,56 @@ BSTNode *BinarySearchTree::min(Node* _x)
 BSTNode *BinarySearchTree::max(Node* _x)
 {
     if (_x == nil)
-	return _x;
+	return NULL;
     while (_x->right != nil)
 	_x = _x -> right;
     return _x;
+};
+
+TYPE BinarySearchTree::max_value(Node* _x)
+{
+    if (_x == nil)
+	{
+	    std::cerr << "Null has no maximum value." << std::endl;
+	    return -1;
+	}
+    return (max(_x)->data);
+};
+
+TYPE BinarySearchTree::min_value(Node* _x)
+{
+    if (_x == nil)
+	{
+	    std::cerr << "Null has no minimum value." << std::endl;
+	    return -1;
+	}
+    return (min(_x)->data);
+};
+
+TYPE BinarySearchTree::max_value()
+{
+    const Node* x = __root; 
+    if (x == nil)
+	{
+	    std::cerr << "Null has no maximum value." << std::endl;
+	    return -1;
+	}
+    while (x->right != nil)
+	x = x->right;
+    return x->data;
+};
+
+TYPE BinarySearchTree::min_value()
+{
+    const Node* x = __root; 
+    if (x == nil)
+	{
+	    std::cerr << "Null has no maximum value." << std::endl;
+	    return -1;
+	}
+    while (x->left != nil)
+	x = x->left;
+    return x->data;
 };
 
 BSTNode *BinarySearchTree::max()
@@ -44,43 +90,101 @@ BSTNode *BinarySearchTree::max()
 
 BSTNode *BinarySearchTree::successor(Node* _x)
 {
-    if (_x == NULL)
+    if (_x == nil)
 	{
 	    std::cout << "Error, null has no successor." << std::endl;
-	    exit(-1);
+	    std::exit(-1);
 	}
-    if (_x -> right != NULL)
+    if (_x -> right != nil)
 	return min(_x -> right);
+	
+    Node* y = _x->parent;
+    while (y != nil && _x == y->right)
+	{
+	    _x = y;
+	    y = y->parent;
+	}
+    if (y == nil)
+	return NULL;
+    else
+	return y;
+	
+ };
+
+TYPE BinarySearchTree::succeeding_value(Node *_x)
+{
+    if (_x == nil)
+	{
+	    std::cout << "Error, null has no successor." << std::endl;
+	    std::exit(-1);
+	}
+
+    if (_x->right != nil)
+	return min_value(_x -> right);
+	
+    Node* y = _x->parent;
+    while (y != nil && _x == y->right)
+	{
+	    _x = y;
+	    y = y->parent;
+	}
+    if (y != nil)
+	return y->data;
     else
 	{
-	    Node* y = _x->parent;
-	    while (y != NULL && _x == y->right)
-		{
-		    _x = y;
-		    y = y->parent;
-		}
-	    return y;
+	    std::cerr << "Maximum node has no successor."
+		  << std::endl;
+	    //As a signal.
+	    return MIN;
 	}
 };
 
 BSTNode *BinarySearchTree::predecessor(Node *_x)
 {
-    if (_x == NULL)
+    if (_x == nil)
 	{
 	    std::cout << "Error, null has no successor." << std::endl;
 	    exit(-1);
 	}
-    if (_x -> left != NULL)
-	return max(_x -> left);
+     if (_x->left != nil)
+	return max(_x->left);
+    
+    Node* y = _x->parent;
+    while (y != nil && _x == y->left)
+	{
+	    _x = y;
+	    y = y->parent;
+	}
+
+    if (y != nil)
+	return y;
+    else
+	return NULL;
+};
+
+TYPE BinarySearchTree::preceding_value(Node *_x)
+{
+    if (_x == nil)
+	{
+	    std::cout << "Error, null has no successor." << std::endl;
+	    std::exit(-1);
+	}
+    if (_x->left != nil)
+	return max_value(_x->left);
+    
+    Node* y = _x->parent;
+    while (y != nil && _x == y->left)
+	{
+	    _x = y;
+	    y = y->parent;
+	}
+    if (y != nil)
+	return y->data;
     else
 	{
-	    Node* y = _x -> parent;
-	    while (y != NULL && _x == y->left)
-		{
-		    _x = y;
-		    y = y->parent;
-		}
-	    return y;
+	    std::cerr << "Minimum node has no predecessor."
+		      << std::endl;
+	    return MIN;
 	}
 };
 
