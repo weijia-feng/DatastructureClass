@@ -15,7 +15,11 @@ public:
 
     //const Node* _getroot();
     Node* _getroot();
-    BinaryTree(){__root = NULL;};
+    BinaryTree()
+	{
+	    nil = new Node;
+	    __root = nil;
+	};
     BinaryTree(TYPE _d);
     int inorder_walk();
     int inorder_walk(Node *_x);
@@ -23,9 +27,13 @@ public:
     int Release(Node* _x);
     int release(Node* _x);
     int release();
+    int setRoot(Node* _x);
+    int height(Node* _x);
+    int height();
     
-private:
+public:
     Node *__root;
+    Node *nil;
 }; 
 
 

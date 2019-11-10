@@ -16,35 +16,30 @@ BSTNode* BinarySearchTree::search(Node* _x, TYPE k)
 
 BSTNode *BinarySearchTree::min()
 {
-    BSTNode* r = _getroot();
-    if (r != NULL)
-	r = min(r);
-    return r;	
+    return min(__root);	
 }
  
 BSTNode *BinarySearchTree::min(Node* _x)
 {
-    if (_x != NULL)
-	{
-	     while (_x->left != NULL)
-	     _x = _x ->left;
-	}
+    if (_x == nil)
+	return _x;	
+    while (_x->left != nil)
+	_x = _x ->left;	
     return _x;
 };
 
 BSTNode *BinarySearchTree::max(Node* _x)
 {
-    while (_x->right != NULL)
+    if (_x == nil)
+	return _x;
+    while (_x->right != nil)
 	_x = _x -> right;
     return _x;
 };
 
 BSTNode *BinarySearchTree::max()
 {
-    BSTNode* r = _getroot();
-    if (r != NULL)
-	r = max(r);
-    return r;	
+    return max(__root);
 }
 
 BSTNode *BinarySearchTree::successor(Node* _x)
@@ -89,30 +84,35 @@ BSTNode *BinarySearchTree::predecessor(Node *_x)
 	}
 };
 
-int BinarySearchTree::insert(Node* _r, Node* _new)
+int BinarySearchTree::insert(Node* _n)
 {
-    Node* y = NULL;
-    Node* x = new Node;
-    x -> data = _new -> data;
-    if (_r == NULL)
-	reinit(_new);
-    else
-	{
-	    while(_r != NULL)
-		{
-		    y = _r;
-		    if(_r -> data > x -> data)
-			_r = _r -> left;
-		    else
-			_r = _r -> right;
-		}
+    Node* y = nil;
+    Node* x = __root;
+    _n->parent = nil;
+    _n->left = nil;
+    _n->right = nil;
     
-	    if (y->data > x -> data)
-		y -> left = x;
-	    else
-		y -> right = x;
-	    x -> parent = y;
+    if (x == nil)
+	{
+	    __root = _n;
+	    return 0;
 	}
+    
+    while(x != nil)
+	{
+	    y = x;
+	    if(x->data > _n->data)
+		x = x->left;
+	    else
+		x = x->right;
+	}
+    
+    if (y->data > _n->data)
+	y->left = _n;
+    else
+	y->right = _n;
+    
+    _n -> parent = y;
     return 0;
 };
 
@@ -120,40 +120,41 @@ int BinarySearchTree::insert(TYPE _d)
 {
     Node* x = new Node;
     x -> data = _d;
-    Node* y = _getroot();
-    
-    if (y == NULL)
-	reinit(x);
-    else
-	insert(y, x);
+    insert(x);
     
     return 0;
 };
 
 int BinarySearchTree::transplant(Node* _o, Node* _n)
 {
-    if (_o == NULL)
+    if (_o == nil)
 	{
 	    std::cerr << "Error! Can not transplant to a NULL."
 		      << std::endl;
 	    std::exit(-1);
 	}
-    if (_o -> parent == NULL)
-	reinit(_n);
-    else if(_o == _o ->parent->left)
-	_o -> parent -> left = _n;
+    if (_o->parent == nil)
+	__root = _n;
+    else if(_o == _o->parent->left)
+	_o -> parent->left = _n;
     else
-	_o -> parent -> right = _n;
-    if(_n != NULL)
-	_n -> parent = _o -> parent;
+	_o -> parent->right = _n;
+    if(_n != nil )
+	_n->parent = _o->parent;
     return 0;
 };
 
 int BinarySearchTree::del(Node* _x)
 {
-    if (_x -> left == NULL)
+    if (_x == nil)
+	{
+	    std::cerr << "Cannot delete a nil." << std::endl;	    
+	    std::exit(-1);
+	}	    
+	
+    if (_x -> left == nil)
 	transplant(_x, _x -> right);
-    else if (_x -> right == NULL)
+    else if (_x->right == nil)
 	transplant(_x, _x -> left);
     else
 	{
@@ -162,7 +163,8 @@ int BinarySearchTree::del(Node* _x)
 	    if (y->parent != _x)
 		{
 		    transplant(y, y->right);
-		    y->right->parent = y;
+		    _x->right->parent = y;
+		    y->right = _x->right;
 		}
 	    transplant(_x, y);
 	    y -> left = _x -> left;

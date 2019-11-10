@@ -43,11 +43,18 @@ int main(int argc, char *argv[])
     // B.insert(y, x);
     
     B.inorder_walk(B._getroot());    
-
+    std::cout << "Height of B:" << B.height() << std::endl;
+    std::cout << "Maximum of B:" << B.max() << std::endl;
+    std::cout << "Minimum of B:" << B.min() << std::endl;
+    
     BSTNode* r = B._getroot();
     r = r -> left -> left;
     B.del(r);
-    B.inorder_walk(B._getroot());    
+    B.inorder_walk(B._getroot());
+    
+    B.release(B._getroot());
+    B.inorder_walk(r);
+	
     //std::cout << B._getroot()->data << std::endl;
     //B.inorder_walk(B._getroot());    
     BinaryTree A;

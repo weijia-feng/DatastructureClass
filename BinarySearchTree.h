@@ -12,7 +12,7 @@ public:
     Node* max(Node* _x);
     Node* successor(Node* _x);
     Node* predecessor(Node* _x);
-    int insert(Node* _r, Node* _x);
+    int insert(Node* _n);
     int del(Node *_x);
     int transplant(Node* _o, Node* _n);
     int insert(TYPE _d);
