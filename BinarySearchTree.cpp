@@ -1,4 +1,5 @@
 #include "BinarySearchTree.h"
+
 #ifndef _BINARYSEARCHTREE_H
 #define _BINARYSEARCHTREE_H
 
@@ -16,7 +17,7 @@ BSTNode* BinarySearchTree::search(Node* _x, TYPE k)
 
 BSTNode *BinarySearchTree::min()
 {
-    return min(__root);	
+    return min(root);	
 }
  
 BSTNode *BinarySearchTree::min(Node* _x)
@@ -59,7 +60,7 @@ TYPE BinarySearchTree::min_value(Node* _x)
 
 TYPE BinarySearchTree::max_value()
 {
-    const Node* x = __root; 
+    const Node* x = root; 
     if (x == nil)
 	{
 	    std::cerr << "Null has no maximum value." << std::endl;
@@ -72,7 +73,7 @@ TYPE BinarySearchTree::max_value()
 
 TYPE BinarySearchTree::min_value()
 {
-    const Node* x = __root; 
+    const Node* x = root; 
     if (x == nil)
 	{
 	    std::cerr << "Null has no maximum value." << std::endl;
@@ -85,7 +86,7 @@ TYPE BinarySearchTree::min_value()
 
 BSTNode *BinarySearchTree::max()
 {
-    return max(__root);
+    return max(root);
 }
 
 BSTNode *BinarySearchTree::successor(Node* _x)
@@ -191,14 +192,14 @@ TYPE BinarySearchTree::preceding_value(Node *_x)
 int BinarySearchTree::insert(Node* _n)
 {
     Node* y = nil;
-    Node* x = __root;
+    Node* x = root;
     _n->parent = nil;
     _n->left = nil;
     _n->right = nil;
     
     if (x == nil)
 	{
-	    __root = _n;
+	    root = _n;
 	    return 0;
 	}
     
@@ -238,7 +239,7 @@ int BinarySearchTree::transplant(Node* _o, Node* _n)
 	    std::exit(-1);
 	}
     if (_o->parent == nil)
-	__root = _n;
+	root = _n;
     else if(_o == _o->parent->left)
 	_o -> parent->left = _n;
     else
@@ -278,5 +279,6 @@ int BinarySearchTree::del(Node* _x)
     delete _x;
     return 0;
 };
-
+#else
+//Do nothing.
 #endif

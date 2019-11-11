@@ -1,4 +1,4 @@
-#include "BinarySearchTree.h"
+#include "RedBlackTree.h"
 #ifndef _BINARYSEARCHTREE_H
 #define _BINARYSEARCHTREE_H
 
@@ -52,12 +52,11 @@ int main(int argc, char *argv[])
 	      << std::endl;
     std::cerr << "successor of root:" << B.successor(r)->data << std::endl;
     
-    r = r -> left -> left;
+    r = r->left->left;
     B.del(r);
     B.inorder_walk(B._getroot());
     
     B.release(B._getroot());
-    B.inorder_walk(r);
 	
     //std::cout << B._getroot()->data << std::endl;
     //B.inorder_walk(B._getroot());    
@@ -71,6 +70,15 @@ int main(int argc, char *argv[])
     // BinarySearchTree C(3);
     //if (C._getroot() == NULL)
     //std::cout << "C is NULL." << std::endl;
+    RedBlackTree C ;
+    C = RedBlackTree(3);
+    C.insert(5);
+    C.insert(7);
+    C.insert(4);
+    C.insert(8);
+    C.insert(9);
+    
+    C.inorder_walk();
     return 0;
 };
 

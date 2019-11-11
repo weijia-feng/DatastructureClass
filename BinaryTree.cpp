@@ -6,16 +6,16 @@
 BinaryTree::BinaryTree(TYPE _d)
 {
     nil = new Node;
-    __root = new Node;
-    __root->parent = nil;
-    __root->left = nil;
-    __root->right = nil;
-    __root->data = _d;
+    nil->color = BLACK;
+    root = new Node;
+    root->color = BLACK;
+    root->parent = root->left = root->right = nil;
+    root->data = _d;
 };
 
 BinaryTree::Node* BinaryTree::_getroot()
 {
-    return __root;
+    return root;
 };
 
 int BinaryTree::inorder_walk(Node* _x)
@@ -26,6 +26,12 @@ int BinaryTree::inorder_walk(Node* _x)
 	    std::cout << _x->data << " ";
 	    inorder_walk(_x->right);
 	}
+    return 0;
+};
+
+int BinaryTree::inorder_walk()
+{
+    inorder_walk(root);
     return 0;
 };
 
@@ -59,20 +65,20 @@ int BinaryTree::release(Node* _x)
 
 int BinaryTree::release()
 {
-    Release(__root);
-    __root = nil ;
+    Release(root);
+    root = nil ;
     return 0;
 };
 
 int BinaryTree::reinit(Node* _x)
 {
-    __root = _x;
+    root = _x;
     return 0;
 };
 
 int BinaryTree::setRoot(Node* _x)
 {
-    __root = _x;
+    root = _x;
     return 0;
 };
 
@@ -86,7 +92,7 @@ int BinaryTree::height(Node* _x)
 
 int BinaryTree::height()
 {
-    return height(__root);
+    return height(root);
 }
 #else
 //Do nothing

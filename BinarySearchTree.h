@@ -4,7 +4,6 @@ class BinarySearchTree : public BinaryTree
 {
 public:
     //BinarySearchTree();
-    //BinarySearchTree(TYPE _d);
     Node* search(Node* _x, TYPE k);
     Node* min();
     Node* max();
@@ -22,6 +21,8 @@ public:
     TYPE del(Node *_x);
     TYPE transplant(Node* _o, Node* _n);
     TYPE insert(TYPE _d);
+    BinarySearchTree(TYPE _d) : BinaryTree(_d){};
+    BinarySearchTree(){};
 };
 
 typedef BinaryTree::Node BTNode;
