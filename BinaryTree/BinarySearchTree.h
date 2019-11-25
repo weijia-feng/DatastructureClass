@@ -19,7 +19,7 @@ public:
     TYPE preceding_value(Node* _x);    
     TYPE insert(Node* _n);
     TYPE del(Node *_x);
-    TYPE transplant(Node* _o, Node* _n);
+
     TYPE insert(TYPE _d);
     BinarySearchTree(TYPE _d) : BinaryTree(_d){};
     BinarySearchTree(){};

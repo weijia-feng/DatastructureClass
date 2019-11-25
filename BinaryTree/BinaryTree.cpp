@@ -93,7 +93,51 @@ int BinaryTree::height(Node* _x)
 int BinaryTree::height()
 {
     return height(root);
-}
+};
+
+int BinaryTree::rightRotate(Node* _x)
+{
+    Node* y = _x->left;
+    transplant(_x, y);
+    _x->left = y->right;
+    _x->left->parent = _x;
+    y->right = _x;
+    _x->parent = y;
+    
+    return 0;
+};
+
+int BinaryTree::transplant(Node* _o, Node* _n)
+{
+    if (_o == nil)
+	{
+	    std::cerr << "Error! Can not transplant to a NULL."
+		      << std::endl;
+	    std::exit(-1);
+	}
+    if (_o->parent == nil)
+	root = _n;
+    else if(_o == _o->parent->left)
+	_o -> parent->left = _n;
+    else
+	_o -> parent->right = _n;
+    if(_n != nil )
+	_n->parent = _o->parent;
+    return 0;
+};
+
+int BinaryTree::leftRotate(Node* _x)
+{
+    Node* y = _x->right;
+    transplant(_x, y);
+    _x->right = y->left;
+    _x->right->parent = _x;
+    y->left = _x;
+    _x->parent = y;
+
+    return 0;
+};
+
 #else
 //Do nothing
 #endif

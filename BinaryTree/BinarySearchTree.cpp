@@ -230,24 +230,6 @@ int BinarySearchTree::insert(TYPE _d)
     return 0;
 };
 
-int BinarySearchTree::transplant(Node* _o, Node* _n)
-{
-    if (_o == nil)
-	{
-	    std::cerr << "Error! Can not transplant to a NULL."
-		      << std::endl;
-	    std::exit(-1);
-	}
-    if (_o->parent == nil)
-	root = _n;
-    else if(_o == _o->parent->left)
-	_o -> parent->left = _n;
-    else
-	_o -> parent->right = _n;
-    if(_n != nil )
-	_n->parent = _o->parent;
-    return 0;
-};
 
 int BinarySearchTree::del(Node* _x)
 {

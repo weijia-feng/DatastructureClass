@@ -38,6 +38,9 @@ class BinaryTree
     int setRoot(Node* _x);
     int height(Node* _x);
     int height();
+    int rightRotate(Node* _x);
+    int leftRotate(Node* _x);
+    TYPE transplant(Node* _o, Node* _n);    
 
 }; 
 #else

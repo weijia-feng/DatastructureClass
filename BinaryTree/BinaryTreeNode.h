@@ -7,7 +7,7 @@
 #define BLACK false
 #define RED true
 
-typedef int TYPE;//used to have error here, forgot simicolon. 
+typedef int TYPE; //Semicolon! 
 
 class BinaryTreeNode
 {

@@ -11,5 +11,6 @@ class RedBlackTree : public BinarySearchTree
     RedBlackTree(){};
 
     int insert(Node* _x);
-    int del(Node* _x);    
+    int insert(TYPE _d);
+    int del(Node* _x);
 };

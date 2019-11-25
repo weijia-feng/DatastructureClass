@@ -1,49 +1,39 @@
 #include "RedBlackTree.h"
 
+
 int RedBlackTree::insert(Node* _x)
 {
     BinarySearchTree::insert(_x);
-    _x->color = RED;
-    if (_x->parent->color == BLACK)
-	return 0;
+    _x->color = RED; //Initialize the color of new node to red.
     
     while (_x->parent != nil && _x->color == RED)
     {
+	if (_x->parent->color == BLACK)
+	return 0;
+
 	if (_x->parent = _x->parent->parent->left)
 	{
 	    Node* y = _x->parent->parent->right;
-	    if (y->color == RED)
+	    if (y->color == RED) //x->parent's color is red now.
 	    {
-		_x->parent->color = y->color = BLACK;
+		_x->parent->color = y->color = BLACK; 
 		_x = _x->parent->parent;
 		_x->color = RED;
 	    }
-	    else 
+	    else //if x.uncle's color is black, then do this. 
 	    {
 		if (_x == _x->parent->right)
 		{
-		    transplant(_x->parent, _x);
-		    _x->left->parent = _x->parent;
-		    _x->parent->right = _x->left;
-		    _x->left = _x->parent;
-		    _x->parent->parent = _x; 
+		    _x = _x->parent;
+		    leftRotate(_x);
 		}
-		else
-		{
-		    y = _x->parent;
-		    transplant(y->parent, y);
-		    y->parent->left = y->right;
-		    y->parent->left->parent = y->parent;
-		    y->right = y->parent;
-		    y->right->parent = y;
-		    y->color = BLACK;
-		    y->right->color = RED;
-		}
-				
+		_x->parent->color = BLACK;
+		_x->parent->parent->color = RED;
+		rightRotate(_x->parent->parent);
 	    }
 	}
 	    
-	if (_x->parent = _x->parent->parent->right)
+	else //_x->parent is the right son of its father.
 	{
 	    Node* y = _x->parent->parent->left;
 	    if (y->color == RED)
@@ -52,30 +42,26 @@ int RedBlackTree::insert(Node* _x)
 		_x = _x->parent->parent;
 		_x->color = RED;
 	    }
-	    else 
+	    else //x.uncle's color is black
 	    {
 		if (_x == _x->parent->left)
 		{
-		    transplant(_x->parent, _x);
-		    _x->parent->left = _x->right;
-		    _x->parent->left->parent = _x->parent;
-		    _x->right = _x->parent;
-		    _x->right->parent = _x; 
-		}
-		else
-		{
-		    y = _x->parent;
-		    transplant(y->parent, y);
-		    y->parent->right = y->left;
-		    y->parent->right->parent = y->parent;
-		    y->left = y->parent;
-		    y->left->parent = y;
-		    y->color = BLACK;
-		    y->left->color = RED;
-		}
+		    _x = _x->parent; //must change _x to its parent.
+		    rightRotate(_x);
+		} //case3 follows after the operation of case2
+		_x->parent->color = BLACK;
+		_x->parent->parent->color = RED;
+		leftRotate(_x->parent->parent);
 	    }
 	}
-
+	root->color = BLACK;
     }
     return 0;  
+};
+
+int RedBlackTree::insert(TYPE _d)
+{
+    Node* x = new Node(_d);
+    insert(x);
+    return 0;
 };
