@@ -1,5 +1,26 @@
 #include "RedBlackTree.h"
 
+int RedBlackTree::inorder_walk(Node* _x)
+{
+    if (_x != nil)
+    {
+	inorder_walk(_x->left);
+	std::cout << _x->data << " ";
+	if (_x->color == 0)
+	    std::cout << "B ";
+	else
+	    std::cout << "R ";	
+	inorder_walk(_x->right);
+    }
+    return 0;
+};
+
+int RedBlackTree::inorder_walk()
+{
+    inorder_walk(root);
+    std::cout << "root " << root->data << std::endl;
+    return 0;
+};
 
 int RedBlackTree::insert(Node* _x)
 {
@@ -11,7 +32,7 @@ int RedBlackTree::insert(Node* _x)
 	if (_x->parent->color == BLACK)
 	return 0;
 
-	if (_x->parent = _x->parent->parent->left)
+	if (_x->parent == _x->parent->parent->left)
 	{
 	    Node* y = _x->parent->parent->right;
 	    if (y->color == RED) //x->parent's color is red now.

@@ -54,16 +54,16 @@ int main(int argc, char *argv[])
     
     r = r->left->left;
     B.del(r);
-    B.inorder_walk(B._getroot());
+    B.inorder_walk();
     
     B.release(B._getroot());
 	
     //std::cout << B._getroot()->data << std::endl;
     //B.inorder_walk(B._getroot());    
-    BinaryTree A;
+    //BinaryTree A;
     
-    if (A._getroot() == NULL)
-	std::cout << "A is NULL." << std::endl;
+    //if (A._getroot() == NULL)
+    //std::cerr << "A is NULL tree." << std::endl;
     //BinaryTree B(2);
     // if (B._getroot() == NULL)
     //std::cout << "B is NULL." << std::endl;
@@ -71,13 +71,12 @@ int main(int argc, char *argv[])
     //if (C._getroot() == NULL)
     //std::cout << "C is NULL." << std::endl;
     RedBlackTree C ;
-    C = RedBlackTree(3);
+    C = RedBlackTree(3); //Tree, root is a node of it. Not a function 
     C.insert(5);
     C.insert(7);
     C.insert(4);
     C.insert(8);
     C.insert(9);
-    
     C.inorder_walk();
     return 0;
 };

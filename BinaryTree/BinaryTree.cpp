@@ -32,6 +32,7 @@ int BinaryTree::inorder_walk(Node* _x)
 int BinaryTree::inorder_walk()
 {
     inorder_walk(root);
+    std::cerr << std::endl;
     return 0;
 };
 
